@@ -1,6 +1,6 @@
 # Offline Evaluation for PrivacyQA Systems
 
-<span style="color:red">Status: In Progress - This project is not yet complete..</span>
+### <span style="color:red">Status: In Progress - This project is not yet complete..</span>
 
 ##Overview
 This repository contains code for offline evaluation of three different systems designed to handle PrivacyQA for virtual assistants. These systems process privacy-related questions over Alexa's privacy policies and documents and generate responses based on retrieved documents. The systems under evaluation are:
