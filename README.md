@@ -1,6 +1,6 @@
 # Offline Evaluation for PrivacyQA Systems
 
-### <span style="color:red">Status: In Progress - This project is not yet complete..</span>
+### <font color="red">Status: In Progress - This project is not yet complete.</font>
 
 ##Overview
 This repository contains code for offline evaluation of three different systems designed to handle PrivacyQA for virtual assistants. These systems process privacy-related questions over Alexa's privacy policies and documents and generate responses based on retrieved documents. The systems under evaluation are:
@@ -65,4 +65,5 @@ Execute the evaluation.py script to perform the evaluation:
     └── README.md
 
 ## Contact
-For any questions or issues, please contact Zahra Kolagar at [zahra.kolagar@iis.fraunhofer.de].
+For any questions or issues, please contact Zahra Kolagar at <a href="mailto:zahra.kolagar@iis.fraunhofer.de">zahra.kolagar@iis.fraunhofer.de</a>
+.
