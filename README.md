@@ -24,45 +24,46 @@ LLM Response Evaluation on Several Metrics: This level evaluates the final outpu
 
 To run the code, follow these steps:
 
-1. **Clone the Repository**: 
-   ```bash
-   git clone <repository_url>
-   cd <repository_name>
+. **Clone the repository:**
 
-2. **Install Dependencies**:
-Ensure you have Poetry installed. Initialize the environment and install dependencies:
     ```bash
-    poetry install
+    git clone https://github.com/yourusername/your-repo.git
+    cd your-repo
+    ```
+
+2. **Create a virtual environment (recommended):**
+
+    ```bash
+    python -m venv venv
+    ```
+
+3. **Activate the virtual environment:**
+
+    - **On Windows:**
+
+        ```bash
+        venv\Scripts\activate
+        ```
+
+    - **On macOS/Linux:**
+
+        ```bash
+        source venv/bin/activate
+        ```
+
+4. **Install the required packages:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 3. **Upload Data**:
 Upload your CSV or JSON files into the data directory. The data files should contain the outputs of the systems you wish to evaluate.
 
 
-4. **Run the Evaluation**:
-Execute the evaluation.py script to perform the evaluation:
-    ```bash
-   poetry run python privacyQA_offline_evaluation/evaluation.py /path/to/input/file.csv output_file_name.csv
 
 **Notes**:
 1. You will be prompted to enter you OpenAI's API key as soon as you run the above code in the terminal.
-2. Define the path to your input file and rename your output file in the code above.
-
-## Directory Structure
-
-    offline_evaluation/
-    │
-    ├── output_dir/
-    │   └── # it will be created automatically
-    ├── offline_evaluation/
-    │   ├── __init__.py
-    │   ├── config.py
-    │   ├── evaluation.py
-    │   ├── utils.py
-    │
-    ├── .gitignore
-    ├── pyproject.toml
-    ├── requirements.txt
-    └── README.md
 
 ## Contact
 For any questions or issues, please contact Zahra Kolagar at <a href="mailto:zahra.kolagar@iis.fraunhofer.de">zahra.kolagar@iis.fraunhofer.de</a>

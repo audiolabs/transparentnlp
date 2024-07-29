@@ -1,0 +1,155 @@
+{
+    "context_adherence": {
+        "Answer_Alexa": 34.0,
+        "Excerpts": 99.230769,
+        "Designed_Answer_1": 81.081081,
+        "Designed_Answer_2": 82.452381,
+        "RAG": 60.131578,
+        "RAG+RAIN comprehensibility": 70.789473,
+        "RAG+RAIN dishonesty": 71.973684
+    },
+    "completeness": {
+        "Answer_Alexa": 17.567568,
+        "Excerpts": 59.585366,
+        "Designed_Answer_1": 53.65,
+        "Designed_Answer_2": 54.871795,
+        "RAG": 63.947368,
+        "RAG+RAIN comprehensibility": 68.289473,
+        "RAG+RAIN dishonesty": 64.605263
+    },
+    "correctness": {
+        "Answer_Alexa": 87.5,
+        "Excerpts": 88.054054,
+        "Designed_Answer_1": 83.815789,
+        "Designed_Answer_2": 85.0,
+        "RAG": 46.447368,
+        "RAG+RAIN comprehensibility": 69.210526,
+        "RAG+RAIN dishonesty": 66.105263
+    },
+    "answer_relevancy": {
+        "Answer_Alexa": 28.176471,
+        "Excerpts": 56.162162,
+        "Designed_Answer_1": 68.868421,
+        "Designed_Answer_2": 62.228571,
+        "RAG": 67.631578,
+        "RAG+RAIN comprehensibility": 74.078947,
+        "RAG+RAIN dishonesty": 70.131578
+    },
+    "readability_LLM_eval_Trott": {
+        "Answer_Alexa": 94.763158,
+        "Excerpts": 86.452381,
+        "Designed_Answer_1": 92.452381,
+        "Designed_Answer_2": 93.0,
+        "RAG": 89.078947,
+        "RAG+RAIN comprehensibility": 90.657894,
+        "RAG+RAIN dishonesty": 89.342105
+    },
+    "bleu_score": {
+        "Answer_Alexa": 0.347872,
+        "Excerpts": 1.0,
+        "Designed_Answer_1": 5.414268,
+        "Designed_Answer_2": 5.745975,
+        "RAG": 0.083763,
+        "RAG+RAIN comprehensibility": 0.075394,
+        "RAG+RAIN dishonesty": 0.083763
+    },
+    "rouge_1": {
+        "Answer_Alexa": 0.091223,
+        "Excerpts": 1.0,
+        "Designed_Answer_1": 0.355153,
+        "Designed_Answer_2": 0.357467,
+        "RAG": 0.314466,
+        "RAG+RAIN comprehensibility": 0.321033,
+        "RAG+RAIN dishonesty": 0.325623
+    },
+    "bert_score": {
+        "Answer_Alexa": 0.818737,
+        "Excerpts": 1.0,
+        "Designed_Answer_1": 0.877726,
+        "Designed_Answer_2": 0.877113,
+        "RAG": 0.328401,
+        "RAG+RAIN comprehensibility": 0.352674,
+        "RAG+RAIN dishonesty": 0.328401
+    },
+    "readability_score": {
+        "Answer_Alexa": 81.076053,
+        "Excerpts": 48.684524,
+        "Designed_Answer_1": 61.777143,
+        "Designed_Answer_2": 63.880714,
+        "RAG": 49.075526,
+        "RAG+RAIN comprehensibility": 55.219210,
+        "RAG+RAIN dishonesty": 51.692894
+    },
+    "readability_grade": {
+        "Answer_Alexa": 4.078947,
+        "Excerpts": 11.261905,
+        "Designed_Answer_1": 8.690476,
+        "Designed_Answer_2": 8.214286,
+        "RAG": 49.075526,
+        "RAG+RAIN comprehensibility": 55.219210,
+        "RAG+RAIN dishonesty": 49.075526
+    },
+    "lexical_diversity": {
+        "Answer_Alexa": 0.95818,
+        "Excerpts": 0.725228,
+        "Designed_Answer_1": 0.85908,
+        "Designed_Answer_2": 0.848105,
+        "RAG": 80.994016,
+        "RAG+RAIN comprehensibility": 54.907506,
+        "RAG+RAIN dishonesty": 53.992976
+    },
+    "text_length": {
+        "Answer_Alexa": 14.368421,
+        "Excerpts": 84.833333,
+        "Designed_Answer_1": 31.047619,
+        "Designed_Answer_2": 31.547619,
+        "RAG": 22.829542,
+        "RAG+RAIN comprehensibility": 22.856578,
+        "RAG+RAIN dishonesty": 22.829542
+    },
+    "Faithfulness": {
+        "Answer_Alexa": 57.894736,
+        "Excerpts": 100.0,
+        "Designed_Answer_1": 97.368421,
+        "Designed_Answer_2": 98.684210,
+        "RAG": 76.184210,
+        "RAG+RAIN comprehensibility": 88.684210,
+        "RAG+RAIN dishonesty": 85.131578
+    },
+    "Answer relevancy": {
+        "Answer_Alexa": 31.315789,
+        "Excerpts": 75.131578,
+        "Designed_Answer_1": 84.078947,
+        "Designed_Answer_2": 87.876843,
+        "RAG": 83.421052,
+        "RAG+RAIN comprehensibility": 87.368421,
+        "RAG+RAIN dishonesty": 87.763158
+    },
+    "Answer correctness": {
+        "Answer_Alexa": 12.236842,
+        "Excerpts": 68.684210,
+        "Designed_Answer_1": 97.355153,
+        "Designed_Answer_2": 96.876544,
+        "RAG": 60.263157,
+        "RAG+RAIN comprehensibility": 87.368421,
+        "RAG+RAIN dishonesty": 66.842105
+    },
+    "Context relevancy": {
+        "Answer_Alexa": 18.815789,
+        "Excerpts": 100.0,
+        "Designed_Answer_1": 88.684210,
+        "Designed_Answer_2": 87.684210,
+        "RAG": 75.526316,
+        "RAG+RAIN comprehensibility": 80.131578,
+        "RAG+RAIN dishonesty": 81.315789
+    },
+    "Answer semantic similarity": {
+        "Answer_Alexa": 13.552631,
+        "Excerpts": 68.947368,
+        "Designed_Answer_1": 97.976873,
+        "Designed_Answer_2": 98.760232,
+        "RAG": 49.078947,
+        "RAG+RAIN comprehensibility": 63.157894,
+        "RAG+RAIN dishonesty": 60.921052
+    }
+}
