@@ -76,7 +76,7 @@ def calculate_Ragas_metrics(query: str, context: str, hypothesis: str, reference
 
 
 df = pd.read_csv(os.path.join(Config.DATA_DIR, 'final_dataset_with_non_proactive_answers.tsv'), sep='\t')
-df= df.head(1)
+df= df
 # Iterate through each row and compute the scores
 for idx, row in df.iterrows():
     query = row['Question']
