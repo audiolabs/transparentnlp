@@ -129,7 +129,7 @@ def process_column(df: pd.DataFrame, column_name: str, output_file: str):
             f.write(f"{metric}: {score}\n")
 
 def main():
-    input_file = os.path.join(Config.DATA_DIR, 'processed_data.tsv')
+    input_file = os.path.join(Config.DATA_DIR, 'final_dataset_with_non_proactive_answers.tsv')
 
     df = pd.read_csv(input_file, sep="\t")
 
