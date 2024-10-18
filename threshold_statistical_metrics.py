@@ -12,7 +12,7 @@ import os
 from configs import Config
 
 # Load the dataset
-df = pd.read_csv(os.path.join(Config.DATA_DIR, 'final_dataset_with_non_proactive_answers.tsv'), sep='\t')
+df = pd.read_csv(os.path.join(Config.DATA_DIR, 'updated_final_dataset_with_non_proactive_answers.tsv'), sep='\t')
 
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -60,10 +60,8 @@ def calculate_semantic_similarity(reference, candidate, model_name = "all-MiniLM
 
 # Calculate metrics for specified columns
 columns_to_evaluate = [
-    'Rag_Rain_comp', 'Rag_Rain_dishon', 'Rag', 'Answer_Alexa', 'Excerpts',
     'Designed_Answer_1', 'Designed_Answer_2', 'Designed_Answer_Non_Proactive_1',
-    'Designed_Answer_Non_Proactive_2', 'Designed_Answer_Non_Proactive_3',
-    'Designed_Answer_Non_Proactive_4', 'Designed_Answer_Non_Proactive_5'
+    'Designed_Answer_Non_Proactive_2', 'Designed_Answer_Non_Proactive_3'
 ]
 
 # Create a new DataFrame to store the results
@@ -73,9 +71,9 @@ for column in columns_to_evaluate:
     results[f'{column}_BLEU'] = df.apply(lambda x: calculate_bleu(x['Excerpts'], x[column])
                                          if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
     results[f'{column}_ROUGE'] = df.apply(lambda x: calculate_rouge(x['Excerpts'], x[column])
-                                          if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+                                           if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
     results[f'{column}_Readability'] = df[column].apply(lambda x: calculate_readability(x)
-                                                        if pd.notna(x) else np.nan)
+                                                         if pd.notna(x) else np.nan)
     results[f'{column}_TextStat'] = df[column].apply(lambda x: calculate_textstat(x)
                                                      if pd.notna(x) else np.nan)
     results[f'{column}_LexicalDiversity'] = df[column].apply(lambda x: calculate_lexical_diversity(x)
@@ -85,7 +83,7 @@ for column in columns_to_evaluate:
     results[f'{column}_bert'] = df.apply(lambda x: calculate_bert_score(x['Excerpts'], x[column])
                                         if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
     results[f'{column}_STS'] = df.apply(lambda x: calculate_semantic_similarity(x['Excerpts'], x[column])
-                                        if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+                                     if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
 
 # Save the results to a new CSV file
-results.to_csv(os.path.join(Config.DATA_DIR, 'thresholds_statistical.tsv'),sep='\t', index=False)
+#results.to_csv(os.path.join(Config.DATA_DIR, 'add_new_name.tsv'),sep='\t', index=False)
