@@ -1,12 +1,11 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import os
 import re
 import numpy as np
 from datetime import datetime
-import seaborn as sns
 
-file_path = '/correctness_readability'
+
+file_path = 'your_path_here/correctness_readability/'
 answer_types = ['Designed_Answer_1', 'Designed_Answer_2', 'VanillaRAG','RAG+RAIN_Readability', 'RAG+RAIN_Correctness', 'RAG+MultiRAIN_Readability+Correctness']
 
 # Initialize an empty dictionary to hold the data
@@ -274,15 +273,9 @@ num_metrics = len(metrics)
 num_rows = (num_metrics + 2) // 3  # Example: 3 columns, adjust as needed
 num_cols = min(num_metrics, 3)  # Example: up to 3 plots per row
 
-# Define the colors for each answer type
-# color_mapping = {
-#     'Designed_Answer_1': 'gold',
-#     'Designed_Answer_2': 'gold',
-#     'Rag': 'red',
-#     'Rag_Rain_comp': '#FF8C00',
-#     'Rag_Rain_dishon': '#FF8C00'
-# }
 
+
+# Your existing color mapping dictionary
 color_mapping = {
     'Designed_Answer_1': 'gold',
     'Designed_Answer_2': 'gold',
@@ -307,14 +300,15 @@ for idx, metric in enumerate(metrics):
 
     # Create the bar plot
     ax.bar(percentage_df.index, percentage_df[metric], color=colors, edgecolor='black')
-    ax.set_xlabel('Answer Type')
     ax.set_ylabel('Percentage (%)')
     ax.set_title(f'{metric}')
     ax.set_ylim(0, 100)  # Set y-axis limits from 0 to 100
     ax.grid(axis='y', linestyle='--', alpha=0.7)  # Add grid lines
 
-    # Rotate x-axis labels by 90 degrees for readability
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
+    # Set the x-tick labels directly with rotation
+    ax.set_xticks(range(len(percentage_df.index)))
+    ax.set_xticklabels(percentage_df.index, rotation=90, ha='center')
+    ax.set_xlabel('Answer Type')  # Label for the x-axis
 
 # Remove any unused subplots
 for idx in range(len(metrics), len(axes)):
