@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "enter key here"
 
 
 def call_gpt4(prompt):
