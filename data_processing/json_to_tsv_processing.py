@@ -2,45 +2,63 @@ import os
 import json
 import pandas as pd
 import re
-from tqdm import tqdm  # Import tqdm for progress bar
+from pathlib import Path
+from tqdm import tqdm
+import sys
+sys.path.insert(0, ".")
 from configs import Config
 
+# Custom exception for file loading errors
+class FileNotFoundErrorCustom(Exception):
+    pass
 
 # Loading JSON
 def load_json(file_path):
+    """Load a JSON file and return its contents."""
     try:
         with open(file_path, 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        print(f"Error: The file '{file_path}' was not found.")
-        exit()
+        raise FileNotFoundErrorCustom(f"Error: The file '{file_path}' was not found.")
 
+def process_data(data, data_dir, json_file):
+    """Process the data and save it to a TSV file with the same base name as the JSON file, minus any 'res_' prefix."""
+    
+    # Remove the "res_" prefix from the json file name if it exists
+    file_name_base = json_file.stem
+    if file_name_base.startswith("res_"):
+        file_name_base = file_name_base[len("res_"):]
 
-def process_data(data, data_dir, user_input, pa_exists, output_file):
-    # Capitalize and format `data_dir`
-    formatted_data_dir = data_dir.replace("_", " ").title().replace(" ", "_")
+    # Determine if the file name contains multirain-related variants
+    file_name = json_file.name.lower()
+    if 'multirain' in file_name or 'multi_rain' in file_name or 'multi+rain' in file_name:
+        prefix = 'RAG+MultiRAIN_'
+    else:
+        prefix = 'RAG+RAIN_'
 
-    # Initialize lists to hold extracted data
-    question_list = []
-    id_list = []
-    title_list = []
-    content_list = []
-    raina_list = []
+    # Clean up the data directory name for use in the column name
+    formatted_data_dir = Path(json_file.parent).name  # Get the directory name
+    file_name_upper = file_name_base.upper()  # Convert file name to uppercase
+    
+    # Construct the column name
+    column_name = f'{prefix}{formatted_data_dir}_{file_name_upper}'
+    
+    question_list, id_list, title_list, content_list, raina_list = [], [], [], [], []
 
-    # Combine the data extraction in a single loop for the dataset
-    for item in tqdm(data, desc="Processing items", unit="item"):  # Add progress bar for items
+    # Compile the regex pattern once
+    response_pattern = re.compile(r'(?:.*?Assistant:.*?){2}(?P<Response>.*)', re.DOTALL)
+
+    for item in tqdm(data, desc=f"Processing items in {json_file.name}", unit="item"):
         question = item["question"]
         documents = item["documents"]
         raina = item["raina"]
-
         num_documents = len(documents)
 
-        # Extend lists with extracted data
-        question_list.extend([question] * num_documents)
-        id_list.extend([doc["id"] for doc in documents])
-        title_list.extend([doc["title"] for doc in documents])
-        content_list.extend([doc["content"] for doc in documents])
-        raina_list.extend([raina] * num_documents)
+        question_list += [question] * num_documents
+        id_list += [doc["id"] for doc in documents]
+        title_list += [doc["title"] for doc in documents]
+        content_list += [doc["content"] for doc in documents]
+        raina_list += [raina] * num_documents
 
     # Create DataFrame
     df = pd.DataFrame({
@@ -51,48 +69,49 @@ def process_data(data, data_dir, user_input, pa_exists, output_file):
         'Raina': raina_list,
     })
 
-    # Extract the specific responses from the text using compiled regex
-    response_pattern = re.compile(r'(?:.*?Assistant:.*?){2}(?P<Response>.*)', re.DOTALL)
+    # Add the extracted response as a new column with the appropriate name
+    df[column_name] = df['Raina'].str.extract(response_pattern)['Response'].fillna('')
 
-    # Determine column name based on user input
-    if user_input.lower() == "multirain":
-        column_name = f'RAG+MultiRAIN_{formatted_data_dir}'
-    else:
-        column_name = f'RAG+RAIN_{user_input.capitalize()}'
+    # Drop duplicates and unwanted columns
+    df = df.drop_duplicates(subset='Question', keep='first').drop(columns=['Raina', 'Content'])
 
-    # Update progress bar for applying the RAG+RAIN column
-    tqdm.pandas(desc=f'Processing {column_name}')
+    # Define the output TSV filename, removing "res_" if present
+    output_file_name = json_file.stem.replace("res_", "") + ".tsv"
+    save_to_tsv(df, data_dir, output_file_name)
 
-    df[column_name] = df['Raina'].progress_apply(
-        lambda x: response_pattern.search(x).group('Response') if response_pattern.search(x) else '')
+def save_to_tsv(df, data_dir, output_file_name):
+    """Save the DataFrame to a TSV file."""
+    output_path = Path(Config.DATA_DIR) / data_dir / output_file_name
+    df.to_csv(output_path, sep='\t', index=False)
+    print(f"File saved to: {output_path}")
 
+def process_all_json_files(data_dir):
+    """Process all JSON files in the specified directory."""
+    data_dir_path = Path(Config.DATA_DIR) / data_dir
+    if not data_dir_path.is_dir():
+        raise ValueError(f"The directory '{data_dir_path}' does not exist.")
 
-    df = df.drop_duplicates(subset='Question', keep='first')
-    df = df.drop(columns=['Raina', 'Content'])
+    # Find all JSON files in the directory
+    json_files = list(data_dir_path.glob("*.json"))
+    if not json_files:
+        print(f"No JSON files found in directory '{data_dir_path}'.")
+        return
 
-    # Save the DataFrame to a TSV file with the user-specified name
-    df.to_csv(os.path.join(os.path.join(Config.DATA_DIR, data_dir), output_file), sep='\t', index=False)
+    for json_file in json_files:
+        try:
+            # Load JSON data
+            data = load_json(json_file)
 
+            # Process and save each file
+            process_data(data, data_dir, json_file)
+        except (FileNotFoundErrorCustom, ValueError) as e:
+            print(e)
+        except Exception as e:
+            print(f"An unexpected error occurred while processing {json_file}: {e}")
 
-# Profiling the code
 def main():
-    # Ask the user for the data directory
-    data_dir = input("Enter the path to the data directory: ")
-
-    user_input = input("Enter the name of the JSON file (without res_ or .json): ")
-    json_file = f'res_{user_input}.json'
-
-    file_path = os.path.join(os.path.join(Config.DATA_DIR, data_dir), json_file)
-    data = load_json(file_path)
-
-    # Check for 'pa' existence
-    pa_exists = any('pa' in item for item in data)
-
-    # Ask the user for the output TSV file name
-    output_file = input("Enter the name for the output TSV file (with .tsv extension): ")
-
-    process_data(data, data_dir, user_input, pa_exists, output_file)
-
+    data_dir = input("Enter the path to the data directory: ").strip()
+    process_all_json_files(data_dir)
 
 if __name__ == "__main__":
     main()

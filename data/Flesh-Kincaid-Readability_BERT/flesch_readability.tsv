@@ -1,0 +1,85 @@
+Question	Document ID	Title	RAG+RAIN_Flesh-Kincaid-Readability_BERT_FLESCH_READABILITY
+Can I delete my old calendar history?	privacy-FAQ-5	Privacy FAQ	" Yes, you can delete your calendar events one by one, by date range, or all at once by visiting the Calendar section in the Alexa app or on the Amazon website. You can also choose to have your calendar events older than 3 or 18 months deleted automatically.
+"
+Do I have choice or control options for my contacts' information?	privacy-Notice-9	Privacy Notice	" Yes, you can manage your contacts in the ""Your Account"" section of the website. You can add, update, or delete contacts. If you don't want Alexa to call or message your contacts, you can disable the feature in the Alexa app or website.
+"
+Can I hide my email address?	privacy-FAQ-7	Privacy FAQ	" You can manage your email preferences in the ""Your Account"" section of the website. You can choose to stop receiving certain types of emails, such as marketing emails, or you can unsubscribe from all emails. However, you cannot hide your email address from us, as we need it to communicate with you about your orders and other important information related to your account.
+"
+I want to change my name.	privacy-Notice-8	Privacy Notice	" To change your name, you need to update your account information. You can do this by visiting the ""Your Account"" section of the Amazon website and clicking on the ""Edit"" button next to your name. Once you've made the change, it may take some time for Alexa to update her records.
+"
+I want to edit my phone number.	privacy-Notice-8	Privacy Notice	" To edit your phone number, you can go to the ""Your Account"" section of the Amazon website and look for the ""Contact Information"" section. From there, you should be able to edit your phone number.
+"
+Can you delete information about my time zone?	privacy-FAQ-5	Privacy FAQ	" I'm unable to directly delete information about your time zone. However, you can manage your time zone settings in the Alexa app or on your device. If you delete your voice recordings, Alexa will no longer be able to use that information to determine your time zone based on your location.
+"
+Can you delete my voice recordings?	privacy-FAQ-5	Privacy FAQ	" Yes, you can delete your voice recordings one by one, by date range, by Alexa-enabled device, or all at once. You can also choose to have your voice recordings older than 3 or 18 months deleted automatically. If you choose not to save any voice recordings, we will automatically delete your voice recordings after we process your requests and all of the voice recordings currently in your Voice History as well.
+"
+Are you sharing my age with others?	privacy-Notice-5	Privacy Notice	" Amazon does not share your age with others unless it is necessary to provide you with a service or to comply with the law. For example, if you purchase age-restricted items, we may need to share your age with the seller to confirm that you are old enough to purchase the item.
+"
+Who can access information about my appointments?	privacy-Notice-8	Privacy Notice	" We do not collect or store information about your appointments. The information you can access in your account includes your name, address, payment options, profile information, Prime membership, household settings, and purchase history. For more details, you can check the sources I've provided.
+"
+Does the company share user's contacts' information with a third party?	privacy-Notice-5	Privacy Notice	" Amazon shares customers' personal information only as described in their privacy notice. For transactions involving third parties, Amazon makes available to you services, products, applications, or skills provided by third parties for use on or through Amazon Services. In such cases, Amazon shares customers' personal information related to those transactions with that third party. Amazon also employs other companies and individuals to perform functions on their behalf. These third-party service providers have access to personal information needed to perform their functions, but may not use it for other purposes.
+"
+Does it save my email contacts and sell it to 3rd parties?	privacy-Notice-5	Privacy Notice	" Amazon does not sell your email contacts. However, Amazon Services may include third-party advertising and links to other websites and apps. Third-party advertising partners may collect information about you when you interact with their content, advertising, and services. This information may be used to serve you with more useful and relevant ads. You can learn more about how to opt-out of interest-based advertising by going to the Advertising Preferences page.
+"
+Do you share my location with other people?	privacy-Notice-5	Privacy Notice	" We do not share your precise location with others unless we have your consent or are required to do so by law. We may share your approximate location with third parties to provide and improve location-based services. For example, we might share that you are in a city or a general area, but not your exact street address.
+"
+Are you sharing my name?	privacy-Notice-5	Privacy Notice	" Amazon Europe shares your personal information only as described in their privacy notice. This includes transactions involving third parties, third party service providers, business transfers, and protection of Amazon Europe and others. If your name is shared with a third party, you will receive notice and have an opportunity to choose not to share the information.
+"
+Who has access to my phone number?	privacy-Notice-8	Privacy Notice	" Your phone number is used to communicate with you about your orders, account activity, and promotional offers. It is also used to enable certain features, such as voice ID for Alexa. Access to your phone number is granted to Amazon employees and contractors who need it to provide and improve these services. They are required to maintain the confidentiality of your information and are not authorized to use it for any other purpose.
+"
+Who has access to my time zone?	privacy-Notice-8	Privacy Notice	" Your time zone is a piece of information that you can manage in the ""Your Account"" section of the Amazon website. It is used to provide you with accurate information about the status of your orders and the availability of products and services. Access to this information is limited to authorized Amazon employees, contractors, and third-party service providers who need it to provide services to Amazon or to you.
+"
+Who can access my voice recordings?	privacy-FAQ-7	Privacy FAQ	" Your voice recordings are associated with your Amazon account and can be accessed by anyone who has access to that account. You can review and delete your voice recordings at any time. Additionally, if you have enabled deletion by voice, you can delete your voice recordings by asking Alexa to do so.
+"
+What does the privacy policy say in regards to saving my name?	privacy-Notice-11	Privacy Notice	" The privacy policy states that personal information, including your name, is kept for as long as it is required to fulfill the purposes described in the policy, or as required by law. It's used to enable continued use of Amazon Services and to improve the relevancy of products and content recommended to you.
+"
+What is the latest privacy policy in regards to processing my voice?	privacy-FAQ-6	Privacy FAQ	" Our privacy policy explains how we collect, use, and share your voice recordings. We use your voice recordings to provide and improve our services and develop new features. We also provide you with control over your voice recordings, including the ability to review, delete, and disable the use of your voice recordings for these purposes. You can manage these settings in the Alexa app.
+"
+Why do you know my age?	privacy-Notice-8	Privacy Notice	" We do not collect or store your age as a standalone data point. However, we may infer age based on other information, such as your date of birth or the content that you purchase or view.
+"
+Why do you know my calendar appointments?	privacy-Notice-8	Privacy Notice	" We don't have access to your calendar appointments unless you give us permission to access them. You can allow Alexa to access your calendar to help manage your schedule, set reminders, and answer questions about your upcoming appointments. For example, you can ask Alexa to add an event to your calendar, or ask Alexa to tell you what's on your schedule for the day.
+"
+Why is all my contacts' personal information needed?	privacy-Notice-2	Privacy Notice	" We collect and use the contact information you provide when you consent to let us sync your contacts with Amazon Services. This helps us provide you with a better experience when you use our services, such as making it easier to share content or invite friends to use features. We don't sell these contacts to third parties and we use them only as described in our Privacy Notice.
+"
+Why did you add all my contacts' phone numbers to my contact book?	privacy-Notice-3	Privacy Notice	" We do not add your contacts' phone numbers to your contact book without your permission. However, when you link your contact list to Alexa, Alexa can call your contacts by name and make it easier for you to call them. This is an optional feature and requires your explicit consent.
+"
+Why do you know my email address?	privacy-Notice-8	Privacy Notice	" We use your email address to communicate with you. For example, we might send you updates about your orders, or send you a confirmation when you place an order. We also use your email address to send you marketing communications, if you have subscribed to those.
+"
+Why do you know my location?	privacy-Notice-8	Privacy Notice	" We use your location to provide and improve our services. For example, we use your location to determine the content that's most relevant to you, like the local news, weather, and traffic updates. We also use location information to help you find things nearby, like stores, restaurants, and other services.
+"
+For what purpose is my name collected?	privacy-Notice-3	Privacy Notice	" Your name is collected to provide, troubleshoot, and improve Amazon Services. It is used to communicate with you about orders, products, and services, and to personalize your experience with Amazon Services. It may also be used to prevent and detect fraud and abuse, and to comply with legal obligations.
+"
+What do you need my phone number for?	privacy-Notice-8	Privacy Notice	" We may use your phone number to communicate with you about orders, services, and promotional offers. We may also use it to verify your identity when you call in to customer service.
+"
+Do you need to know my time zone?	privacy-Notice-8	Privacy Notice	" Yes, knowing your time zone helps us to deliver information and services relevant to your location. For example, it allows us to provide you with weather updates, news, and reminders at the right time.
+"
+Why do you record my voice?	privacy-FAQ-1	Privacy FAQ	" We record your voice to provide and improve our services. For example, we use your voice recordings to recognize your voice and respond to your requests. We also use your voice recordings to train and improve our speech recognition and natural language understanding systems. This helps Alexa understand and respond to a wide range of customer requests and improve over time.
+"
+Can the assistant pull information from my phone's calendar?	privacy-Notice-8	Privacy Notice	" Yes, with your permission, Alexa can access your calendar on your phone to help you manage your schedule. You can ask Alexa to add, modify, or delete calendar events. You can also ask Alexa to tell you about your upcoming appointments or reminders.
+"
+Does the assistant have access to my contacts?	privacy-Notice-8	Privacy Notice	" By default, Alexa does not access your contacts without your permission. However, you can allow Alexa to access your contacts to make calls, send messages, or add events to your calendar. You can manage these permissions in the Alexa app or on your device.
+"
+What's my address?	privacy-Notice-8	Privacy Notice	" I cannot directly access or provide your address. However, you can find it in the ""Your Account"" section of the Amazon website.
+"
+What is my name?	privacy-Notice-8	Privacy Notice	" I don't have access to your personal information, including your name. However, you can access it in the ""Your Account"" section of the website.
+"
+Do you know my phone number?	privacy-Notice-8	Privacy Notice	" I don't have access to your personal information unless it has been shared with me in the course of providing Amazon Services or you have given me permission to access it. However, I can help you find where to access or change your phone number in your Amazon account settings.
+"
+How do you process my audio recordings?	privacy-FAQ-6	Privacy FAQ	" When you speak to Alexa, a recording of what you asked Alexa is sent to Amazon's cloud for processing. Alexa uses this recording, along with other information, to respond to your request. For example, when you ask, ""Alexa, play top hits on Amazon Music,"" Alexa uses the recording of your request and information from Amazon Music to play the top hits.
+"
+Does the assistant turn on my mic without my knowledge?	privacy-FAQ-4	Privacy FAQ	" No, the assistant does not turn on your mic without your knowledge. The microphone on Echo devices is designed to detect only your chosen wake word. When the device detects the wake word, it turns on the microphone and sends the audio to the cloud to process your request. When the request is processed, the microphone turns off. You can also press the microphone off button to manually turn off the microphone.
+"
+Is my calendar stored on the device?	privacy-FAQ-1	Privacy FAQ	" By default, Alexa does not access or store your calendar on your Echo device. However, you can allow Alexa to access your calendar to help manage your schedule. When you link your calendar, Alexa can add events to your calendar, help you manage your schedule, and provide you with reminders.
+"
+Do they keep my contacts' information?	privacy-Notice-11	Privacy Notice	" Yes, they keep your contacts' information if you have given them permission to access it. This information is used to improve the relevancy of products and content they recommend to you.
+"
+How long will my location history be kept?	privacy-Notice-11	Privacy Notice	" We keep your location history for as long as it is required in order to fulfil the relevant purposes described in our Privacy Notice, or as otherwise communicated to you. For example, we retain your location history so that you can view your past locations and use location-based services like Find My Phone.
+"
+How can you guarantee my location information is secure?	privacy-Notice-6	Privacy Notice	" We design our systems and devices with your security and privacy in mind. We maintain physical, electronic, and procedural safeguards in connection with the collection, storage, and disclosure of personal customer information. Our security procedures mean that we may ask to verify your identity before we disclose personal information to you. You can also control the security settings of your device and configure them based on your needs.
+"
+For how long would my name be stored in the database?	privacy-Notice-11	Privacy Notice	" We keep your personal information to enable your continued use of Amazon Services, for as long as it is required in order to fulfill the relevant purposes described in our Privacy Notice, or as otherwise communicated to you. For example, we retain your transaction history so that you can review past purchases and repeat orders if desired.
+"
+Is the information on my time zone stored?	privacy-Notice-8	Privacy Notice	" Yes, we collect and store information about your time zone in order to provide and continually improve our products and services. This information helps us to deliver content and services relevant to your location, such as news and weather updates.
+"
+Do you store my voice recordings locally or on a server?	privacy-FAQ-7	Privacy FAQ	" Alexa is designed to process your requests locally on your device, but for certain features, Alexa sends audio to the cloud. For example, when you make a call or send a message or announcement via Alexa, or when you create a voice ID, the audio recordings used to teach Alexa your voice will be sent to the cloud. Text transcripts of your requests are also sent to the cloud so Alexa can respond to your request. You can review and delete those transcripts in your Voice History.
+"

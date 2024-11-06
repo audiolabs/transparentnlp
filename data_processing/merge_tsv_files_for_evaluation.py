@@ -1,18 +1,46 @@
 import os
 import pandas as pd
 import re
+from functools import reduce
+from tqdm import tqdm  # For progress bar
+import sys
+sys.path.insert(0, ".")
 from configs import Config
 
-
 def clean_question_column(df):
-    # Clean the 'Question' column by removing leading/trailing spaces, converting to lowercase, and removing trailing punctuation
+    """
+    Cleans the 'Question' column by:
+    - Stripping leading/trailing spaces
+    - Converting the text to lowercase to standardize
+    - Ensuring each question ends with a question mark
+    - Capitalizing the first letter of each question
+
+    Args:
+        df (pd.DataFrame): The input DataFrame with a 'Question' column.
+
+    Returns:
+        pd.DataFrame: The DataFrame with a cleaned 'Question' column.
+    """
     df['Question'] = df['Question'].str.strip()  # Remove leading/trailing spaces
-    df['Question'] = df['Question'].str.lower()  # Convert to lowercase
-    df['Question'] = df['Question'].str.replace(r'[^\w\s]', '', regex=True)  # Remove punctuation
+    df['Question'] = df['Question'].str.lower()  # Convert to lowercase to standardize
+
+    # Ensure the question ends with a "?" and capitalize the first letter
+    df['Question'] = df['Question'].apply(lambda x: x.capitalize() + '?' if not x.endswith('?') else x.capitalize())
+
     return df
 
 
 def merge_tsv_files(data_dir):
+    """
+    Merges TSV files from the specified directory and its subdirectories.
+    It cleans the 'Question' column and merges the data on the 'Question' column.
+
+    Args:
+        data_dir (str): The path to the directory containing TSV files.
+
+    Returns:
+        None: Saves the merged DataFrame to a TSV file.
+    """
     # Create the output directory if it doesn't exist
     output_dir = os.path.join(data_dir, 'dataset_for_analysis')
     os.makedirs(output_dir, exist_ok=True)
@@ -30,8 +58,12 @@ def merge_tsv_files(data_dir):
             if file.endswith('.tsv'):
                 file_path = os.path.join(subdir, file)
 
-                # Read the TSV file
-                df = pd.read_csv(file_path, sep='\t')
+                try:
+                    # Read the TSV file
+                    df = pd.read_csv(file_path, sep='\t')
+                except Exception as e:
+                    print(f"Error reading {file_path}: {e}")
+                    continue
 
                 # Ensure 'Question' column exists
                 if 'Question' in df.columns:
@@ -46,10 +78,8 @@ def merge_tsv_files(data_dir):
         print("No TSV files found in the specified directory with the 'Question' column.")
         return
 
-    # Perform a merge on the 'Question' column across all dataframes
-    merged_df = dataframes[0]
-    for df in dataframes[1:]:
-        merged_df = pd.merge(merged_df, df, on='Question', how='outer', suffixes=('', '_dup'))
+    # Merge all DataFrames efficiently
+    merged_df = reduce(lambda left, right: pd.merge(left, right, on='Question', how='outer', suffixes=('', '_dup')), dataframes)
 
     # Drop duplicate columns
     merged_df = merged_df.loc[:, ~merged_df.columns.duplicated()]
@@ -77,4 +107,5 @@ def merge_tsv_files(data_dir):
 if __name__ == "__main__":
     # Use the data directory specified in Config
     data_dir = Config.DATA_DIR
+    print(f"Processing TSV files in directory: {data_dir}")
     merge_tsv_files(data_dir)
