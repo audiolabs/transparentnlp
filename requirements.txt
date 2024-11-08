@@ -1,5 +1,5 @@
 bert_score==0.3.13
-lexicalrichness==0.2.0
+lexicalrichness==0.5.1
 matplotlib==3.4.2
 nltk==3.6.6
 numpy==1.22.4
@@ -7,7 +7,7 @@ openai==1.53.0
 pandas==1.4.2
 rouge_score==0.1.2
 sacrebleu==2.4.3
-sentence_transformers==3.0.1
+sentence_transformers==3.2.1
 textstat==0.7.3
 tqdm==4.66.4
 transformers==4.42.3

@@ -9,20 +9,19 @@ def calculate_percentage_comparisons(dataset):
     columns = data.columns.tolist()
 
     # Define default answer types
-    default_answer_types = [
-        'Designed_Answer_1', 'Designed_Answer_2', 'Answer_Alexa', 'VanillaRAG'
-    ]
-
-    # Find additional answer types dynamically based on the prefixes
-    additional_answer_types = set()
-    for col in columns:
-        if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_'):
-            # Extract the part before the first underscore as the answer type
-            answer_type = col.split('_')[0] + '_' + col.split('_')[1]
-            additional_answer_types.add(answer_type)
-
-    # Combine default and additional answer types
-    all_answer_types = default_answer_types + list(additional_answer_types)
+    all_answer_types = [
+        'Designed_Answer_1',
+        'Designed_Answer_2',
+        'Answer_Alexa',
+        'VanillaRAG',
+        'RAG+RAIN_honesty_comprehensibility_DISHONESTY',
+        'RAG+RAIN_honesty_comprehensibility_COMPREHENSIBILITY',
+        'RAG+RAIN_Flesh-Kincaid-Readability_BERT_FLESCH_READABILITY',
+        'RAG+RAIN_Flesh-Kincaid-Readability_BERT_BERT',
+        'RAG+RAIN_correctness_readability_CORRECTNESS',
+        'RAG+RAIN_correctness_readability_READABILITY',
+        'RAG+MultiRAIN_correctness_readability_MULTIRAIN'
+        ]
 
     # Initialize an empty dictionary to hold the DataFrames for each answer type
     data_dict = {}
@@ -56,7 +55,6 @@ def calculate_percentage_comparisons(dataset):
                 thresholds[metric] = data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], min)  # Use min for all other metrics
 
     numeric_columns = thresholds.drop(columns=['Question'])
-    print(numeric_columns.mean())
 
     counts_dict = {answer_type: pd.DataFrame() for answer_type in all_answer_types}
 
@@ -123,4 +121,3 @@ def calculate_percentage_comparisons(dataset):
 
     # Return the percentage DataFrame for use in another script
     return percentage_df
-

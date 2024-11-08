@@ -1,7 +1,7 @@
 import pandas as pd
 import re
-import sys
 import os
+import sys
 sys.path.insert(0, ".")
 
 # Load the data from the provided TSV file
