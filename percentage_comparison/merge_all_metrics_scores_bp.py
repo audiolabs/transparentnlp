@@ -1,5 +1,8 @@
 import os
 import pandas as pd
+import sys
+sys.path.insert(0, ".")
+from configs import Config
 from configs import Config
 from pathlib import Path
 
@@ -35,9 +38,8 @@ def merge_tsv_files(stat_dir):
         merged_df = merged_df.loc[:, ~merged_df.columns.str.endswith('_dup')]
 
         # Save the merged DataFrame to a new .tsv file in the current directory
-        output_file = Path('all_metrics_scores.tsv')
-        merged_df.to_csv(output_file, sep='\t', index=False)
-        print(f"Merged file saved as {output_file}")
+        merged_df.to_csv(os.path.join(os.path.dirname(stat_dir), 'all_metrics_scores.tsv'), sep='\t', index=False)
+        print(f"Merged file saved as all_metrics_scores.tsv")
         return True
 
     except Exception as e:
@@ -47,5 +49,5 @@ def merge_tsv_files(stat_dir):
 
 if __name__ == "__main__":
     # Path to the STAT_DIR
-    stat_dir = Config.STAT_DIR
+    stat_dir = input("Enter the path to the data directory: ").strip()
     merge_tsv_files(stat_dir)
