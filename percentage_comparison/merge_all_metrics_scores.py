@@ -3,7 +3,6 @@ import pandas as pd
 import sys
 sys.path.insert(0, ".")
 from configs import Config
-from configs import Config
 from pathlib import Path
 
 

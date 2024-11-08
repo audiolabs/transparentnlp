@@ -10,9 +10,7 @@ def calculate_percentage_comparisons(dataset):
 
     # Define default answer types
     default_answer_types = [
-        'Designed_Answer_1', 'Designed_Answer_2', 'Designed_Answer_Non_Proactive_1',
-        'Designed_Answer_Non_Proactive_2', 'Designed_Answer_Non_Proactive_3',
-        'Answer_Alexa', 'VanillaRAG'
+        'Designed_Answer_1', 'Designed_Answer_2', 'Answer_Alexa', 'VanillaRAG'
     ]
 
     # Find additional answer types dynamically based on the prefixes
