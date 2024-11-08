@@ -1,5 +1,7 @@
 import os
 import pandas as pd
+import sys
+sys.path.insert(0, ".")
 from configs import Config
 
 
@@ -30,5 +32,5 @@ def merge_tsv_files(stat_dir):
 
 if __name__ == "__main__":
     # Path to the STAT_DIR
-    stat_dir = Config.STAT_DIR
+    stat_dir = input("Enter the path to the data directory: ").strip()
     merge_tsv_files(stat_dir)

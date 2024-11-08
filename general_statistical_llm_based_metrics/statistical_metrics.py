@@ -71,10 +71,10 @@ def calculate_semantic_similarity(reference, candidate):
     similarity = util.pytorch_cos_sim(embeddings[0], embeddings[1])
     return similarity.item()
 
-# Collect all relevant columns for evaluation
-columns_to_evaluate = ['Designed_Answer_1', 'Designed_Answer_2']
-rag_columns = [col for col in df.columns if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_')]
-columns_to_evaluate.extend(rag_columns)
+# Define columns for evaluation
+columns_to_evaluate = [
+    'Answer_Alexa', 'Designed_Answer_1', 'Designed_Answer_2'
+] + [col for col in df.columns if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_') or col == 'VanillaRAG']
 
 # Initialize a dictionary to hold the results
 result_columns = {}
@@ -91,7 +91,11 @@ for column in tqdm(columns_to_evaluate, desc="Calculating metrics for each colum
     result_columns[f'{column}_STS'] = df.apply(lambda x: calculate_semantic_similarity(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
 
 # After the loop, combine the result columns into the original dataframe
-results = pd.concat([df[columns_to_evaluate], pd.DataFrame(result_columns)], axis=1)
+results = pd.concat([df['Question'], pd.DataFrame(result_columns)], axis=1)
 
 # Save the results to a new TSV file in the current directory
-results.to_csv(os.path.join(data_dir, 'statistical_metrics_scores.tsv'), sep='\t', index=False)
+
+# Create the output directory if it doesn't exist
+output_dir = os.path.join(data_dir, 'analysed_data')
+os.makedirs(output_dir, exist_ok=True)
+results.to_csv(os.path.join(output_dir, 'statistical_metrics_scores.tsv'), sep='\t', index=False)

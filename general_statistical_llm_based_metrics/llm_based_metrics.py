@@ -102,9 +102,13 @@ async def process_rows():
 results = asyncio.run(process_rows())
 
 # Save results to a file in the desired directory
+# Create the output directory if it doesn't exist
+output_dir = os.path.join(data_dir, 'analysed_data')
+os.makedirs(output_dir, exist_ok=True)
+
 try:
     # Save the results to the desired path
-    results.to_csv(os.path.join(data_dir, 'llm_metrics_scores.tsv'), sep='\t', index=False)
+    results.to_csv(os.path.join(output_dir, 'llm_metrics_scores.tsv'), sep='\t', index=False)
 
     logging.info("Results successfully saved to llm_metrics_scores.tsv")
 except Exception as e:
