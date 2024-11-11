@@ -21,23 +21,16 @@ def calculate_percentage_comparisons(dataset):
         'RAG+RAIN_correctness_readability_CORRECTNESS',
         'RAG+RAIN_correctness_readability_READABILITY',
         'RAG+MultiRAIN_correctness_readability_MULTIRAIN'
-        ]
+    ]
 
     # Initialize an empty dictionary to hold the DataFrames for each answer type
     data_dict = {}
 
     # Loop through each answer type and collect relevant columns
     for answer_type in all_answer_types:
-        # Select columns that start with the answer_type or are named 'Question'
         relevant_columns = [col for col in columns if col.startswith(answer_type) or col == 'Question']
-
-        # Create a DataFrame with these relevant columns
         df = data[relevant_columns].copy()
-
-        # Rename metric columns by removing the answer_type prefix
         df.columns = [col.replace(f"{answer_type}_", "") if col.startswith(answer_type) else col for col in df.columns]
-
-        # Store the modified DataFrame in data_dict
         data_dict[answer_type] = df
 
     metrics = [col for col in data_dict.get('Designed_Answer_1').columns if col != 'Question' and col != 'Designed_Answer_1']
@@ -49,18 +42,22 @@ def calculate_percentage_comparisons(dataset):
     # Iterate through the metrics and compute the appropriate threshold value
     for metric in metrics:
         if metric in data_dict.get('Designed_Answer_1').columns and metric in data_dict.get('Designed_Answer_2').columns:
-            if metric == 'Readability':
-                thresholds[metric] = data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], max)  # Use max for readability_grade
+            if metric == 'ReadabilityGrade':
+                thresholds[metric] = data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], max)
+            elif metric in ['SentenceLength', 'LexicalDiversity']:
+                # Calculate the actual min and max values for each question
+                thresholds[metric] = list(zip(
+                data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], min),
+                data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], max)
+                ))
             else:
-                thresholds[metric] = data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], min)  # Use min for all other metrics
+                thresholds[metric] = data_dict.get('Designed_Answer_1')[metric].combine(data_dict.get('Designed_Answer_2')[metric], min)
 
-    numeric_columns = thresholds.drop(columns=['Question'])
-
+    # Initialize counts dictionary
     counts_dict = {answer_type: pd.DataFrame() for answer_type in all_answer_types}
 
     # Iterate over each answer type to calculate counts
     for answer_type in all_answer_types:
-        # Initialize counts DataFrame for the current answer type
         counts = pd.DataFrame()
         counts['Question'] = thresholds['Question']
 
@@ -77,15 +74,15 @@ def calculate_percentage_comparisons(dataset):
                     if not df_subset.empty:
                         metric_values = df_subset[metric].values
                         if len(metric_values) > 0:
-                            # Handle cases where NaN values might be present
                             if pd.isna(threshold_value) or pd.isna(metric_values).any():
                                 counts.at[index, metric] = np.nan
                             else:
-                                if metric == 'Readability':
-                                    # For readability_grade, count instances no larger than the threshold
+                                if metric == 'ReadabilityGrade':
                                     counts.at[index, metric] = int(np.all(metric_values <= threshold_value))
+                                elif metric in ['SentenceLength', 'LexicalDiversity']:
+                                    min_val, max_val = threshold_value  # Unpack the interval
+                                    counts.at[index, metric] = int(np.all((metric_values >= min_val) & (metric_values <= max_val)))
                                 else:
-                                    # For all other metrics, count instances at least as high as the threshold
                                     counts.at[index, metric] = int(np.all(metric_values >= threshold_value))
                         else:
                             counts.at[index, metric] = np.nan
@@ -94,7 +91,6 @@ def calculate_percentage_comparisons(dataset):
                 else:
                     counts.at[index, metric] = np.nan
 
-        # Store the counts DataFrame for the current answer type in the dictionary
         counts_dict[answer_type] = counts
 
     # Initialize an empty DataFrame to store percentages
@@ -102,21 +98,16 @@ def calculate_percentage_comparisons(dataset):
 
     # Iterate over each answer type and metric to compute percentages
     for answer_type in all_answer_types:
-        counts_df = counts_dict[answer_type]  # Retrieve the counts DataFrame for the current answer type
+        counts_df = counts_dict[answer_type]
 
         for metric in metrics:
             if metric in counts_df.columns:
-                # Count the number of 1s and the number of non-NaN values
                 num_ones = counts_df[metric].eq(1).sum()
                 num_non_nan = counts_df[metric].notna().sum()
-
-                # Compute the percentage
                 if num_non_nan > 0:
                     percentage = (num_ones / num_non_nan) * 100
                 else:
-                    percentage = np.nan  # If there are no non-NaN values, set the percentage to NaN
-
-                # Save the percentage in the DataFrame
+                    percentage = np.nan
                 percentage_df.at[answer_type, metric] = percentage
 
     # Return the percentage DataFrame for use in another script

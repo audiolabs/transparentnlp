@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 from matplotlib import colors as mcolors
-from percentage_as_good_as_human import calculate_percentage_comparisons
+from percentage_as_good_as_human_bp import calculate_percentage_comparisons
 
 # Get the directory path from the user
 dat_dir = input("Enter the path to the data directory: ").strip()

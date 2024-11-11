@@ -84,7 +84,7 @@ for column in tqdm(columns_to_evaluate, desc="Calculating metrics for each colum
     result_columns[f'{column}_BLEU'] = df.apply(lambda x: calculate_bleu(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
     result_columns[f'{column}_ROUGE'] = df.apply(lambda x: calculate_rouge(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
     result_columns[f'{column}_Readability'] = df[column].apply(lambda x: calculate_readability(x) if pd.notna(x) else np.nan)
-    result_columns[f'{column}_TextStat'] = df[column].apply(lambda x: calculate_textstat(x) if pd.notna(x) else np.nan)
+    result_columns[f'{column}_ReadabilityGrade'] = df[column].apply(lambda x: calculate_textstat(x) if pd.notna(x) else np.nan)
     result_columns[f'{column}_LexicalDiversity'] = df[column].apply(lambda x: calculate_lexical_diversity(x) if pd.notna(x) else np.nan)
     result_columns[f'{column}_SentenceLength'] = df[column].apply(lambda x: calculate_sentence_length(x) if pd.notna(x) else np.nan)
     result_columns[f'{column}_BERTScore'] = df.apply(lambda x: calculate_bert_score(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
