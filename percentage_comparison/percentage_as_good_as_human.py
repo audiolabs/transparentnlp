@@ -16,11 +16,13 @@ def calculate_percentage_comparisons(dataset):
         'VanillaRAG',
         'RAG+RAIN_honesty_comprehensibility_DISHONESTY',
         'RAG+RAIN_honesty_comprehensibility_COMPREHENSIBILITY',
-        'RAG+RAIN_Flesh-Kincaid-Readability_BERT_FLESCH_READABILITY',
-        'RAG+RAIN_Flesh-Kincaid-Readability_BERT_BERT',
         'RAG+RAIN_correctness_readability_CORRECTNESS',
         'RAG+RAIN_correctness_readability_READABILITY',
-        'RAG+MultiRAIN_correctness_readability_MULTIRAIN'
+        'RAG+MultiRAIN_correctness_readability_MULTIRAIN',
+        'RAG+RAIN_Flesh-Kincaid-Readability_BERT_FLESCH_READABILITY',
+        'RAG+RAIN_Flesh-Kincaid-Readability_BERT_BERT',
+        'RAG+MultiRAIN_Flesh-Kincaid-Readability_BERT_MULTIRAIN_DETERMINISTIC'
+
     ]
 
     # Initialize an empty dictionary to hold the DataFrames for each answer type

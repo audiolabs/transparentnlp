@@ -39,6 +39,8 @@ except Exception as e:
 columns_to_evaluate = [
     'Answer_Alexa', 'Designed_Answer_1', 'Designed_Answer_2'
 ] + [col for col in df.columns if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_') or col == 'VanillaRAG']
+# columns_to_evaluate = [
+#     col for col in df.columns if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_') or col == 'VanillaRAG']
 
 # Function to calculate zero-shot prompts asynchronously
 async def calculate_zeroshot_prompts(question: str, excerpt: str, answer: str):

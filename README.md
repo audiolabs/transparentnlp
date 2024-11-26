@@ -8,6 +8,7 @@ The step to run each sub.directory is as follows:
 1. data_processing 
 2. general_statistical_llm_based_metrics
 3. percentage_comparison
+4. PCA
 
 There is an individual README.md file inside each sub-directory.
 
@@ -25,7 +26,7 @@ To run the code, follow these steps:
 2. **Create a virtual environment (recommended):**
 
     ```bash
-    python -m venv venv
+    python3 -m venv venv
     ```
 
 3. **Activate the virtual environment:**

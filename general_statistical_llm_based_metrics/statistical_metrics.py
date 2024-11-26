@@ -6,6 +6,8 @@ from textstat import textstat
 from lexicalrichness import LexicalRichness
 from transformers import BertTokenizer, BertModel
 from nltk.tokenize import sent_tokenize, word_tokenize
+import nltk
+nltk.download('punkt_tab')
 from bert_score import BERTScorer
 from sentence_transformers import SentenceTransformer, util
 from tqdm import tqdm
@@ -76,19 +78,30 @@ columns_to_evaluate = [
     'Answer_Alexa', 'Designed_Answer_1', 'Designed_Answer_2'
 ] + [col for col in df.columns if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_') or col == 'VanillaRAG']
 
+# columns_to_evaluate = [
+#     col for col in df.columns if col.startswith('RAG+RAIN_') or col.startswith('RAG+MultiRAIN_') or col == 'VanillaRAG']
+
 # Initialize a dictionary to hold the results
 result_columns = {}
 
 # Precompute the values for each row and store them in the dictionary
 for column in tqdm(columns_to_evaluate, desc="Calculating metrics for each column"):
-    result_columns[f'{column}_BLEU'] = df.apply(lambda x: calculate_bleu(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
-    result_columns[f'{column}_ROUGE'] = df.apply(lambda x: calculate_rouge(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_BLEU_Ex'] = df.apply(lambda x: calculate_bleu(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_ROUGE_Ex'] = df.apply(lambda x: calculate_rouge(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_BERTScore_Ex'] = df.apply(lambda x: calculate_bert_score(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_STS_Ex'] = df.apply(lambda x: calculate_semantic_similarity(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_BLEU_DA1'] = df.apply(lambda x: calculate_bleu(x['Designed_Answer_1'], x[column]) if pd.notna(x['Designed_Answer_1']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_ROUGE_DA1'] = df.apply(lambda x: calculate_rouge(x['Designed_Answer_1'], x[column]) if pd.notna(x['Designed_Answer_1']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_BERTScore_DA1'] = df.apply(lambda x: calculate_bert_score(x['Designed_Answer_1'], x[column]) if pd.notna(x['Designed_Answer_1']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_STS_DA1'] = df.apply(lambda x: calculate_semantic_similarity(x['Designed_Answer_1'], x[column]) if pd.notna(x['Designed_Answer_1']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_BLEU_DA2'] = df.apply(lambda x: calculate_bleu(x['Designed_Answer_2'], x[column]) if pd.notna(x['Designed_Answer_2']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_ROUGE_DA2'] = df.apply(lambda x: calculate_rouge(x['Designed_Answer_2'], x[column]) if pd.notna(x['Designed_Answer_2']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_BERTScore_DA2'] = df.apply(lambda x: calculate_bert_score(x['Designed_Answer_2'], x[column]) if pd.notna(x['Designed_Answer_2']) and pd.notna(x[column]) else np.nan, axis=1)
+    result_columns[f'{column}_STS_DA2'] = df.apply(lambda x: calculate_semantic_similarity(x['Designed_Answer_2'], x[column]) if pd.notna(x['Designed_Answer_2']) and pd.notna(x[column]) else np.nan, axis=1)
     result_columns[f'{column}_Readability'] = df[column].apply(lambda x: calculate_readability(x) if pd.notna(x) else np.nan)
     result_columns[f'{column}_ReadabilityGrade'] = df[column].apply(lambda x: calculate_textstat(x) if pd.notna(x) else np.nan)
     result_columns[f'{column}_LexicalDiversity'] = df[column].apply(lambda x: calculate_lexical_diversity(x) if pd.notna(x) else np.nan)
     result_columns[f'{column}_SentenceLength'] = df[column].apply(lambda x: calculate_sentence_length(x) if pd.notna(x) else np.nan)
-    result_columns[f'{column}_BERTScore'] = df.apply(lambda x: calculate_bert_score(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
-    result_columns[f'{column}_STS'] = df.apply(lambda x: calculate_semantic_similarity(x['Excerpts'], x[column]) if pd.notna(x['Excerpts']) and pd.notna(x[column]) else np.nan, axis=1)
 
 # After the loop, combine the result columns into the original dataframe
 results = pd.concat([df['Question'], pd.DataFrame(result_columns)], axis=1)
