@@ -2,6 +2,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from matplotlib import colors as mcolors
+plt.rcParams.update({
+    'font.size': 24,             # General font size
+    'axes.titlesize': 28,        # Title font size
+    'axes.labelsize': 24,        # Axis label font size
+    'xtick.labelsize': 20,       # X-tick label font size
+    'ytick.labelsize': 20,       # Y-tick label font size
+    'legend.fontsize': 20,       # Legend font size
+    'figure.titlesize': 28       # Figure title font size
+})
 from percentage_as_good_as_human import calculate_percentage_comparisons
 
 # Define constants and metric groups
@@ -39,47 +48,61 @@ def prepare_data(file_path):
         'RAG+MultiRAIN_correctness_readability_MULTIRAIN': 'Multirain', 'RAG+RAIN_Flesh-Kincaid-Readability_BERT_FLESCH_READABILITY': 'Flesch Readability',
         'RAG+RAIN_Flesh-Kincaid-Readability_BERT_BERT': 'BERT', 'RAG+MultiRAIN_Flesh-Kincaid-Readability_BERT_MULTIRAIN_DETERMINISTIC': 'Multirain Deterministic'
     })
+    percentage_df = percentage_df[~percentage_df.index.str.contains('Alexa', case=False)]
+
     colors = [COLOR_MAPPING.get(answer_type, 'gray') for answer_type in percentage_df.index]
     return percentage_df, colors
 
 # Plotting functions
 def plot_individual_metric(data, colors, metric, group_name, save_dir):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(8, 6))  # Increased plot size
     plt.bar(data.index, data[metric], color=colors)
-    plt.ylabel('Percentage (%)')
-    plt.title(metric)
+    plt.ylabel('Percentage (%)', fontsize=16)
+    plt.title(metric, fontsize=18)
     plt.ylim(0, 100)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
-    plt.xticks(rotation=45, ha='right', fontsize=8)
-    plt.xlabel('Answer Type')
-    plt.savefig(os.path.join(save_dir, f"{group_name}_{metric}.png"), bbox_inches='tight')
+    plt.xticks(rotation=45, ha='right', fontsize=12)  # Rotated labels
+    plt.xlabel('Answer Type', fontsize=14)
+    plt.tight_layout()  # Avoid overlap
+    plt.savefig(os.path.join(save_dir, f"{group_name}_{metric}.pdf"), bbox_inches='tight')  # Save as PDF
     plt.close()
 
+
 def plot_group_metrics(data, colors, group_name, metrics, save_dir):
-    fig, axes = plt.subplots(1, len(metrics), figsize=(len(metrics) * 4, 5))
-    if len(metrics) == 1:
-        axes = [axes]  # To ensure axes is iterable
+    # Number of subplots (all in one row)
+    cols = len(metrics)
+     # Adjust the figure size: Increase the width per subplot
+    width_per_subplot = 12  # Adjust this value to make subplots wider
+    fig, axes = plt.subplots(1, cols, figsize=(width_per_subplot * cols, 6))  # Increase width for all subplots in one row
+
+    if cols == 1:
+        axes = [axes]  # Ensure axes is iterable even for a single plot
 
     for ax, metric in zip(axes, metrics):
         ax.bar(data.index, data[metric], color=colors)
-        ax.set_ylabel('Percentage (%)')
-        ax.set_title(metric)
+        ax.set_ylabel('Percentage (%)', fontsize=30)
+        ax.set_title(metric, fontsize=30)
         ax.set_ylim(0, 100)
         ax.grid(axis='y', linestyle='--', alpha=0.7)
         ax.set_xticks(range(len(data.index)))
-        ax.set_xticklabels(data.index, rotation=45, ha='right', fontsize=8)
-        ax.set_xlabel('Answer Type')
-    
-    fig.suptitle(group_name.replace("_", " ").title(), fontsize=16)
-    fig.legend(handles=get_custom_legend(), bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=10, frameon=True)
-    plt.tight_layout()
-    plt.savefig(os.path.join(save_dir, f"{group_name}.png"), bbox_inches='tight')
+        ax.set_xticklabels(data.index, rotation=45, ha='right', fontsize=30)  # Larger font size for x-axis labels
+        ax.set_xlabel('Answer Type', fontsize=30)
+        # Increase the font size of y-tick labels
+        ax.tick_params(axis='y', labelsize=30)  # Adjust this value for larger y-tick labels
+
+
+    # Add legend and adjust layout
+    fig.suptitle(group_name.replace("_", " ").title(), fontsize=30, y=1.05)
+    fig.legend(handles=get_custom_legend(), bbox_to_anchor=(0.9, 0.5), loc='center left', fontsize=26, frameon=True)
+    plt.subplots_adjust(wspace=0.3, left=0.05, right=0.85, bottom=0.2, top=0.9)  # Adjust spacing and layout
+    plt.savefig(os.path.join(save_dir, f"{group_name}.pdf"), bbox_inches='tight')  # Save as PDF
     plt.close()
+
 
 def plot_combined_metrics(data, colors, save_dir):
     num_metrics = sum(len(group) for group in GROUPS.values())
     rows = (num_metrics // 4) + (1 if num_metrics % 4 != 0 else 0)  # 4 metrics per row
-    fig, axes = plt.subplots(rows, 4, figsize=(20, 5 * rows))
+    fig, axes = plt.subplots(rows, 4, figsize=(24, 6 * rows))  # Increased figure size
     axes = axes.flatten()  # Flatten axes for simple indexing
     plot_index = 0
 
@@ -89,22 +112,24 @@ def plot_combined_metrics(data, colors, save_dir):
                 break
             ax = axes[plot_index]
             ax.bar(data.index, data[metric], color=colors)
-            ax.set_ylabel('Percentage (%)')
-            ax.set_title(metric)
+            ax.set_ylabel('Percentage (%)', fontsize=16)
+            ax.set_title(metric, fontsize=18)
             ax.set_ylim(0, 100)
             ax.grid(axis='y', linestyle='--', alpha=0.7)
             ax.set_xticks(range(len(data.index)))
-            ax.set_xticklabels(data.index, rotation=45, ha='right', fontsize=8)
-            ax.set_xlabel('Answer Type')
+            ax.set_xticklabels(data.index, rotation=45, ha='right', fontsize=12)  # Rotated labels
+            ax.set_xlabel('Answer Type', fontsize=14)
             plot_index += 1
 
+    # Hide unused axes
     for j in range(plot_index, len(axes)):
-        axes[j].set_visible(False)  # Hide unused axes
+        axes[j].set_visible(False)
 
-    fig.suptitle('Percentage Metrics Visualization (Combined)', fontsize=16)
-    fig.legend(handles=get_custom_legend(), bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=10, frameon=True)
-    plt.subplots_adjust(hspace=0.4, wspace=0.3)
-    plt.savefig(os.path.join(save_dir, 'percentage_metrics_combined.png'), bbox_inches='tight')
+    # Adjust spacing and legend
+    fig.suptitle('Percentage Metrics Visualization (Combined)', fontsize=24)
+    fig.legend(handles=get_custom_legend(), bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=16, frameon=True)
+    plt.subplots_adjust(hspace=0.6, wspace=0.4, bottom=0.2)  # Increased vertical spacing and bottom space
+    plt.savefig(os.path.join(save_dir, 'percentage_metrics_combined.pdf'), bbox_inches='tight')  # Save as PDF
     plt.close()
 
 # Main function to generate all plots
