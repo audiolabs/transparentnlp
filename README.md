@@ -1,6 +1,6 @@
-# PrivacyQA Offline Analysis
+# Transparent NLP
 
-This repository contains the refactored code from the master branch. Each sub-directory contains data and 
+This repository contains code associated with the paper "Transparent NLP: Using RAG and LLM Alignment for Privacy Q&A" by Popp et al. (2025). Each sub-directory contains data and 
 scripts to get the analysis results.
 
 The step to run each sub.directory is as follows:
